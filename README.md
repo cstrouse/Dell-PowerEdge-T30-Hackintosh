@@ -12,7 +12,7 @@
 | PSU         | Corsair 500W 80 Plus Gold w/ 24-pin to 8-pin adapter
 | Motherboard | Dell 07T4MC
 | BIOS        | 1.3.1
-| Chipset     | Intel C602/X79
+| Chipset     | Intel C236
 | Memory      | Corsair Vengeance LPX 32GB DDR4-3200MHz non-ECC 16GB x 2 (PN: CMK32GX4M2B3200C16)
 | GPU         | Intel HD P530 iGPU
 |             | MSI RX 570 GAMING X 8GB - slot 1
