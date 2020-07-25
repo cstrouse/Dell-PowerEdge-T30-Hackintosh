@@ -1,5 +1,7 @@
 # Dell PowerEdge T30 Hackintosh
 
+**** NOTE THIS IS A WORK IN PROGRESS AND NEEDS A BUNCH OF CLEANUP/TUNING ****
+
 ![A24G_1_201708251625270941](https://user-images.githubusercontent.com/849044/88466592-c090b200-ce82-11ea-9990-4153b817b115.jpg)
 
 ## System Specs
