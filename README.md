@@ -6,7 +6,7 @@
 
 ## System Specs
 
-![Screen Shot 2020-07-25 at 2 26 46 PM](https://user-images.githubusercontent.com/849044/88466612-f9c92200-ce82-11ea-8bce-2bcef0e92bd0.png)
+![Screen Shot 2020-09-21 at 10.38.33 PM](https://user-images.githubusercontent.com/849044/93849315-b875a880-fc60-11ea-8dad-da2a51beb5ba.png)
 
 | Part        | Model Number
 | ---         | ---
@@ -15,19 +15,21 @@
 | Motherboard | Dell 07T4MC
 | BIOS        | 1.3.1
 | Chipset     | Intel C236
-| Memory      | Corsair Vengeance LPX 32GB DDR4-3200MHz non-ECC 16GB x 2 (PN: CMK32GX4M2B3200C16)
+| Memory      | Corsair Vengeance LPX 64GB DDR4-3200MHz non-ECC 16GB x 4 (PN: CMK32GX4M2B3200C16)
 | GPU         | Intel HD P530 iGPU
 |             | MSI RX 570 GAMING X 8GB - slot 1
-| Display Cable | Rankie 4k DP to HDMI cable (CableMatters adapter didn't work well)
+| Monitor     | LG 27UK650-W 27" 4K IPS w/ HDR10
+| Display Cable | included LG DP cable
 | Storage     | Samsung 830 Series 250GB SSD ()
 |             | PNY CS900 240GB SSD (Revision CS900J13) x2
 |             | Toshiba MQ01ABD100 1TB HDD
 | Bluetooth   | ASUS USB-BT400 (Firmware: v14 c4096)
+| Wifi        | ASUS AC1200 USB-AC53 Nano (using chris111's drivers)
 | Ethernet    | Intel I219LM2 (onboard)
 | USB         | Intel 100 Series/C230 Series USB 3.00 xHCI Controller
 | Sound       | Realtek ALC899 (Layout ID: 3)
 | Keyboard    | Logitech MX Keys (connected using Logitech Unified receiver)
-| Mouse       | Logitech M590 (connected using Logitech Unified receiver)
+| Mouse       | Logitech M590 (connected using Logitech Unified receiver on a USB extension to prevent lag from RF interference)
 | Bootloader  | Clover r5120
 
 ## BIOS Configuration
