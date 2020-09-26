@@ -69,4 +69,4 @@ This EFI will not work unless you make both UEFI modifications. If you're not up
 
 ## Geek Bench
 
-[add screenshot]
+![geek bench score](https://user-images.githubusercontent.com/849044/94329899-d3536000-ff73-11ea-8150-1ed2e165e33e.png)
