@@ -6,7 +6,7 @@
 
 ## System Specs
 
-![Screen Shot 2020-09-21 at 10.38.33 PM](https://user-images.githubusercontent.com/849044/93849315-b875a880-fc60-11ea-8dad-da2a51beb5ba.png)
+![Screen Shot 2020-09-25 at 9 09 29 PM](https://user-images.githubusercontent.com/849044/94329873-94250f00-ff73-11ea-838f-e974f2ecfce6.png)
 
 | Part        | Model Number
 | ---         | ---
