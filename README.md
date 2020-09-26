@@ -64,7 +64,8 @@ This EFI will not work unless you make both UEFI modifications. If you're not up
 
 ## macOS Updates
 
-* fresh install of 10.15.6
+- fresh install of 10.15.6
+- updated to 10.15.7 without any issues (did not update clover or kexts since everything was running perfectly smooth as-is)
 
 ## Geek Bench
 
