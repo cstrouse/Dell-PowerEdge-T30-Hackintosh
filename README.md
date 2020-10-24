@@ -1,8 +1,73 @@
 # Dell PowerEdge T30 Hackintosh
 
-**** NOTE THIS IS A WORK IN PROGRESS AND NEEDS A BUNCH OF CLEANUP/TUNING ****
+**** NOTE: I've switched from Clover to OC and will not be updating/supporting the Clover version. The OC version needs a small bit of cleanup work for the config.plist but runs rock solid and pretty much everything works properly. ****
 
 ![A24G_1_201708251625270941](https://user-images.githubusercontent.com/849044/88466592-c090b200-ce82-11ea-9990-4153b817b115.jpg)
+
+## Index
+
+* Overview
+* Installation:
+  * BIOS Settings
+  * Download and create the installer
+  * Copy EFI folder
+  * Editing config.plist
+  * First boot!
+  * UEFI Modifications
+  * Installing macOS
+  * Post-install
+* Sleep
+  * Sleep
+  * Power management
+* USB
+  * Portmap
+* Others
+  * iGPU
+  * dGPU
+  * SMBIOS
+  * Fan curve move like a Mac
+  * SIP
+  * Security
+  * Issues
+  * Notes
+* Credits
+
+## Overview
+
+Almost everything works properly and is very stable:
+
+- audio (onboard, via dGPU's DP, and via USB BT)
+- nightshift
+- App Store and iServices
+- CPU PM
+- wifi (requires disabling SIP to install for my drivers)
+- bluetooth
+- DRM (except for Apple TV)
+- Intel Quicksync
+- sleep (HDR toggles itself on sometimes upon resume which sucks because it looks like garbage on my monitor when not viewing actual HDR content; haven't tried to fix yet); wakes up from sleep via BT keyboard or mouse quickly and reliably
+- restarts/shutdowns
+- recovery
+- NVRAM
+- extra sensors and fan speed controls via apps
+
+## Editing config.plist
+
+Inside the EFI/OC folder on your installer open config.plist and edit/populate the following fields:
+
+```
+PlatformInfo -> Generic -> MLB
+PlatformInfo -> Generic -> ROM
+PlatformInfo -> Generic -> SystemSerialNumber
+PlatformInfo -> Generic -> SystemUUID
+```
+
+You can generate the MLB/Serial/UUID serials with GenSMBIOS. Use option 3 and enter iMac17,1 when asked for the type of SMBIOS to create. If you need to change the model in the future you also need to re-generate a new set of serials, UUID and usb portmap.
+
+Put your ethernet mac address in the ROM field without semicolons. Fixing this post-install is also an option, but is important so don't skip it.
+
+For more information on setting up OpenCore please refer to [this](https://dortania.github.io/OpenCore-Install-Guide/config.plist/skylake.html) very well written guide that has helped realise this very setup.
+
+> Please use ProperTree to edit the OpenCore config.
 
 ## System Specs
 
@@ -30,7 +95,7 @@
 | Sound       | Realtek ALC899 (Layout ID: 3)
 | Keyboard    | Logitech MX Keys (connected using Logitech Unified receiver)
 | Mouse       | Logitech M590 (connected using Logitech Unified receiver on a USB extension to prevent lag from RF interference)
-| Bootloader  | Clover r5120
+| Bootloader  | Clover ~~r5120~~ OpenCore 0.6.2
 
 ## BIOS Configuration
 
@@ -38,6 +103,9 @@
 - storage to AHCI mode
 - enable USB powershare
 - set preferred graphics to AMD (don't use auto! set to P530 if you are using the iGPU)
+- disable Wake on LAN
+- disable TPM (should be by default)
+- disable Secure Boot (should be by default)
 
 The rest of the recommended settings are already the defaults used by this BIOS. DVMT is 32MB for the iGPU and setup doesn't expose a means to change this. I modified it via `setup_var` and the modified GRUB shell while trying to get an iGPU-only setup working with a 4k display with no luck. Many forum posts say not to try and change DVMT pre-alloc via GRUB; if you break your system don't be upset as you were warned.
 
@@ -45,7 +113,7 @@ The rest of the recommended settings are already the defaults used by this BIOS.
 
 ## UEFI Modifications
 
-These are __MY__ settings given BIOS version 1.3.1 and board 07T4MC. You need to check these offsets and make sure that they're correct for your machine before trying to change things.
+These are __MY__ settings given BIOS version `1.3.1` and board `07T4MC`. You need to check these offsets and make sure that they're correct for your machine before trying to change things.
 
 1. Disable __CFG Lock__
 
@@ -55,12 +123,98 @@ These are __MY__ settings given BIOS version 1.3.1 and board 07T4MC. You need to
 
 `setup_var 0x355 0x1`
 
-This EFI will not work unless you make both UEFI modifications. If you're not up for that, you'll need to add `npci=0x2000` to your boot args, enable `KernelPm` and `AppleIntelCPUPM` in your `config.plist`, and add memory configuration info (slot, size, brand, and type).
+3. Set DVMT pre-alloc to 64MB (or greater)
+
+[add settings for this]
+
+This EFI will not work unless you make both UEFI modifications. If you're not up for that, you'll need to add `npci=0x2000` to your boot args, enable `KernelPm` and `AppleIntelCPUPM` in your `config.plist`.
+
+## Post-install
+
+## Sleep
+
+Sleep is working as it should. It will fall asleep automatically after a while. Waking up the machine can be done with a bluetooth or usb keyboard/mouse. Apple has removed the slider to control this but it does go to sleep on its own. Manual sleep also works, it takes about 30 seconds. Hibernation is disabled by default on desktops. For good measure lets disable stand-by and auto power off.
+
+```
+sudo pmset -a standby 0
+sudo pmset -a autopoweroff 0
+```
+
+If you don't plan on enabling hibernation you can delete the sleepimage to regain some space. Delete the file and create a folder so macOS can't generate the sleepimage file again.
+
+```
+sudo rm /var/vm/sleepimage
+sudo mkdir /var/vm/sleepimage
+```
+
+Power Nap is enabled and doesn't cause any issues with sleep. Not sure if it actually works though (doing Time Machine backups while sleeping, etc). Don't want Power Nap? Disable it while you're here; `sudo pmset -a powernap 0`
+
+Verify the settings with `pmset -g`.
+
+## Power Management
+
+CPU power management works fine as does sleep.
+
+[add intel power gadget screenshot]
+
+## USB Portmap
+
+I created an injector kext using `hackintool` which you can use to save some time. One port had to be disabled in order to get down to the 15 port limit; I went with the bottom port on the front panel of the case. You could just as easily set a USB 3.0 port to USB 2.0 to get to 15 ports, too if you prefer.
+
+If you'd like to create your own port mapping follow these steps:
+
+1. Open your OpenCore config and set `Kernel -> Add -> 6 -> USBPorts.kext` to disabled and enable `Kernel -> Quirks -> XhciPortLimit`.
+2. Reboot.
+3. Open Hackintool and go to the usb tab, select all ports listed and remove them, then click the refresh button.
+4. Plug a usb 2 device in every usb port.
+5. Plug a usb 3 device in every usb port.
+6. Remove anything not green, you should be left with 16 green ports.
+7. Make sure all the HSxx ports are set to usb 2 and SSPx ports are to usb 3.
+8. Remove one port to get down to the 15 port limit.
+9. Click on the export button and place the resulting USBPorts.kext in the OpenCore kexts folder (overwriting the existing one).
+10. Open your OpenCore config and set `Kernel -> Add -> 6 -> USBPorts.kext` to enabled and disable `Kernel -> Quirks -> XhciPortLimit`.
+11. Reboot.
+
+[add port diagram and hackintool screenshot]
+
+## dGPU
+
+The current config assumes you have an AMD GPU and a Xeon E3-1225v5 with the Intel HD P530 iGPU in headless mode.
+
+If you don't plan on using the iGPU at all (i.e. no display connected) you can delete the whole `PciRoot(0x0)/Pci(0x2,0x0)` section and WhateverGreen should automatically configure it as computing device. It can do video encoding/decoding and such. You will also need to change the BIOS and make the dGPU the primary video card for encoding/decoding to work.
+
+## iGPU
+
+The Intel HD P530 that my Xeon has is 100% supported by macOS but requires a few device properties so it is recognized as a supported Skylake device.
+
+The real device ID `0x191D` will not allow hardware acceleration and needs to be adjusted to the nearest natively supported option that shipped in a real Mac.
+
+After comparing the Skylake CPUs which Apple offered to my Xeon on [Intel's Ark](https://ark.intel.com/content/www/us/en/ark/compare.html?productIds=88188,88185,88184,88191,88196,88195,88168
+) I decided that `0x1912` would be the closest device ID.
+
+I setup the framebuffer as follows within the device properties section:
+
+* AAPL,ig-platform-id
+  * 0x19120000
+    * 00001219
+* device-id
+  * 0x1912
+    * 12190000
+
+With these settings I had full hardware video acceleration and was able to view DRM-protected content (FairPlay 1.x and FairPlay 2.x/3.x). FairPlay 4.x for Apple TV is not working yet for me and I'm not sure why yet.
+
+## SMBIOS
+
+It's best to use a model that matches your processor as closely as possible.
+
+The `iMac17,1` SMBIOS is recommended for Skylake desktops if you have an iGPU+GPU combo.
+
+The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two options are the only Macs that shipped with Skylake CPUs.
 
 ## Readme
 
 - Read everything first and be careful
-- Tested on macOS Catalina 10.15.6 (vanilla)
+- Tested on macOS Catalina 10.15.7
 
 ## macOS Updates
 
@@ -70,3 +224,13 @@ This EFI will not work unless you make both UEFI modifications. If you're not up
 ## Geek Bench
 
 ![geek bench score](https://user-images.githubusercontent.com/849044/94329899-d3536000-ff73-11ea-8150-1ed2e165e33e.png)
+
+## Credits
+
+- Shouts to [zearp](https://github.com/zearp) for his excellent [Optihack repo](https://github.com/zearp/OptiHack) which I've modeled mine after.
+- The Acidanthera team -- OpenCore(!), WhatEverGreen, Lilu, VirtualSMC, AppleALC, etc, etc. Amazing work.
+- Dortania -- Vanilla Desktop Guide, without this I wouldn't have gotten far.
+- headkaze -- Hackintool (an essential) and EFI-Agent is pretty sweet too.
+- corpnewt -- Many essential tools, guides/documentation, simply great!
+- Apple -- for creating such a great OS that we go through all of this to run it.
+- And many, many more I forgot.
