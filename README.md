@@ -78,7 +78,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | CPU         | Intel(R) Xeon(R) CPU E3-1225 v5 @ 3.30GHz (Quad Core)
 | PSU         | Corsair 500W 80 Plus Gold w/ 24-pin to 8-pin adapter
 | Motherboard | Dell 07T4MC
-| BIOS        | 1.3.1
+| BIOS        | 1.4.1
 | Chipset     | Intel C236
 | Memory      | Corsair Vengeance LPX 64GB DDR4-3200MHz non-ECC 16GB x 4 (PN: CMK32GX4M2B3200C16)
 | GPU         | Intel HD P530 iGPU
@@ -119,15 +119,85 @@ These are __MY__ settings given BIOS version `1.3.1` and board `07T4MC`. You nee
 
 `setup_var 0xAF 0x0`
 
+<details>
+ <summary>CFG Lock Options in BIOS 1.4.1</summary>
+
+```
+0x35970 				One Of: CFG lock, VarStoreInfo (VarOffset/VarName): 0xAF, VarStore: 0x1, QuestionId: 0x1E2, Size: 1, Min: 0x0, Max 0x1, Step: 0x0 {05 91 25 01 26 01 E2 01 01 00 AF 00 10 10 00 01 00}
+0x35981 					   One Of Option: Disabled, Value (8 bit): 0x0 {09 07 25 02 00 00 00}
+0x35988 					   One Of Option: Enabled, Value (8 bit): 0x1 (default) {09 07 24 02 30 00 01}
+0x3598F 				End One Of {29 02}
+```
+</details>
+
 2. Enable __Above 4GB MMIO BIOS Assignment__
 
 `setup_var 0x355 0x1`
 
-3. Set DVMT pre-alloc to 64MB (or greater)
+3. Set __DVMT pre-alloc__ to 64MB (or greater)
 
-[add settings for this]
+`setup_var 0x350 0x2`
 
-This EFI will not work unless you make both UEFI modifications. If you're not up for that, you'll need to add `npci=0x2000` to your boot args, enable `KernelPm` and `AppleIntelCPUPM` in your `config.plist`.
+<details>
+ <summary>DVMT Pre-Allocated Options in BIOS 1.4.1</summary>
+
+```
+0x3A119 			One Of: DVMT Pre-Allocated, VarStoreInfo (VarOffset/VarName): 0x350, VarStore: 0x1, QuestionId: 0x275A, Size: 1, Min: 0x1, Max 0xFE, Step: 0x0 {05 91 D5 06 F8 06 5A 27 01 00 50 03 14 10 01 FE 00}
+0x3A12A 				   One Of Option: 32M, Value (8 bit): 0x1 (default) {09 07 D6 06 30 00 01}
+0x3A131 				   One Of Option: 64M, Value (8 bit): 0x2 {09 07 D7 06 00 00 02}
+0x3A138 				   One Of Option: 96M, Value (8 bit): 0x3 {09 07 D8 06 00 00 03}
+0x3A13F 				   One Of Option: 128M, Value (8 bit): 0x4 {09 07 D9 06 00 00 04}
+0x3A146 				   One Of Option: 160M, Value (8 bit): 0x5 {09 07 DA 06 00 00 05}
+0x3A14D 				   One Of Option: 192M, Value (8 bit): 0x6 {09 07 DB 06 00 00 06}
+0x3A154 				   One Of Option: 224M, Value (8 bit): 0x7 {09 07 DC 06 00 00 07}
+0x3A15B 				   One Of Option: 256M, Value (8 bit): 0x8 {09 07 DD 06 00 00 08}
+0x3A162 				   One Of Option: 288M, Value (8 bit): 0x9 {09 07 DE 06 00 00 09}
+0x3A169 				   One Of Option: 320M, Value (8 bit): 0xA {09 07 DF 06 00 00 0A}
+0x3A170 				   One Of Option: 352M, Value (8 bit): 0xB {09 07 E0 06 00 00 0B}
+0x3A177 				   One Of Option: 384M, Value (8 bit): 0xC {09 07 E1 06 00 00 0C}
+0x3A17E 				   One Of Option: 416M, Value (8 bit): 0xD {09 07 E2 06 00 00 0D}
+0x3A185 				   One Of Option: 448M, Value (8 bit): 0xE {09 07 E3 06 00 00 0E}
+0x3A18C 				   One Of Option: 480M, Value (8 bit): 0xF {09 07 E4 06 00 00 0F}
+0x3A193 				   One Of Option: 512M, Value (8 bit): 0x10 {09 07 E5 06 00 00 10}
+0x3A19A 				   One Of Option: 1024M, Value (8 bit): 0x20 {09 07 E6 06 00 00 20}
+0x3A1A1 				   One Of Option: 1536M, Value (8 bit): 0x30 {09 07 E7 06 00 00 30}
+0x3A1A8 				   One Of Option: 2048M, Value (8 bit): 0x40 {09 07 E8 06 00 00 40}
+0x3A1AF 				   One Of Option: 4M, Value (8 bit): 0xF0 {09 07 E9 06 00 00 F0}
+0x3A1B6 				   One Of Option: 8M, Value (8 bit): 0xF1 {09 07 EA 06 00 00 F1}
+0x3A1BD 				   One Of Option: 12M, Value (8 bit): 0xF2 {09 07 EB 06 00 00 F2}
+0x3A1C4 				   One Of Option: 16M, Value (8 bit): 0xF3 {09 07 EC 06 00 00 F3}
+0x3A1CB 				   One Of Option: 20M, Value (8 bit): 0xF4 {09 07 ED 06 00 00 F4}
+0x3A1D2 				   One Of Option: 24M, Value (8 bit): 0xF5 {09 07 EE 06 00 00 F5}
+0x3A1D9 				   One Of Option: 28M, Value (8 bit): 0xF6 {09 07 EF 06 00 00 F6}
+0x3A1E0 				   One Of Option: 32M/F7, Value (8 bit): 0xF7 {09 07 F0 06 00 00 F7}
+0x3A1E7 				   One Of Option: 36M, Value (8 bit): 0xF8 {09 07 F1 06 00 00 F8}
+0x3A1EE 				   One Of Option: 40M, Value (8 bit): 0xF9 {09 07 F2 06 00 00 F9}
+0x3A1F5 				   One Of Option: 44M, Value (8 bit): 0xFA {09 07 F3 06 00 00 FA}
+0x3A1FC 				   One Of Option: 48M, Value (8 bit): 0xFB {09 07 F4 06 00 00 FB}
+0x3A203 				   One Of Option: 52M, Value (8 bit): 0xFC {09 07 F5 06 00 00 FC}
+0x3A20A 				   One Of Option: 56M, Value (8 bit): 0xFD {09 07 F6 06 00 00 FD}
+0x3A211 				   One Of Option: 60M, Value (8 bit): 0xFE {09 07 F7 06 00 00 FE}
+0x3A218 			End One Of {29 02}
+```
+</details>
+
+4. Set __DVMT Total Gfx Memory__ to `MAX`
+
+`setup_var 0x351 0x3`
+
+<details>
+ <summary>DVMT Total Gfx Memory Options in BIOS 1.4.1</summary>
+
+```
+0x3A21A 			One Of: DVMT Total Gfx Mem, VarStoreInfo (VarOffset/VarName): 0x351, VarStore: 0x1, QuestionId: 0x333, Size: 1, Min: 0x1, Max 0x3, Step: 0x0 {05 91 F9 06 FA 06 33 03 01 00 51 03 10 10 01 03 00}
+0x3A22B 				   One Of Option: 128M, Value (8 bit): 0x1 {09 07 FB 06 00 00 01}
+0x3A232 				   One Of Option: 256M, Value (8 bit): 0x2 {09 07 FC 06 00 00 02}
+0x3A239 				   One Of Option: MAX, Value (8 bit): 0x3 (default) {09 07 FD 06 30 00 03}
+0x3A240 			End One Of {29 02}
+```
+</details>
+
+This EFI will not work unless you make all of the UEFI modifications. If you're not up for that, you'll need to add `npci=0x2000` to your boot args, enable `KernelPm` and `AppleIntelCPUPM` in your `config.plist`.
 
 ## Post-install
 
