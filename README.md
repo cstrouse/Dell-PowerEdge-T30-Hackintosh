@@ -113,7 +113,7 @@ The rest of the recommended settings are already the defaults used by this BIOS.
 
 ## UEFI Modifications
 
-These are __MY__ settings given BIOS version `1.3.1` and board `07T4MC`. You need to check these offsets and make sure that they're correct for your machine before trying to change things.
+These are __MY__ settings given BIOS version `1.4.1` and board `07T4MC`. You need to check these offsets and make sure that they're correct for your machine before trying to change things.
 
 1. Disable __CFG Lock__
 
