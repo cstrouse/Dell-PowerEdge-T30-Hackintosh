@@ -271,7 +271,7 @@ I setup the framebuffer as follows within the device properties section:
   * 0x1912
     * 12190000
 
-With these settings I had full hardware video acceleration and was able to view DRM-protected content (FairPlay 1.x and FairPlay 2.x/3.x). FairPlay 4.x for Apple TV is not working yet for me and I'm not sure why yet.
+With these settings I had full hardware video acceleration and was able to view DRM-protected content (FairPlay 1.x and FairPlay 2.x/3.x). FairPlay 4.x for Apple TV is not working for me and I'm not sure why yet. I'm guessing it's because my system doesn't have a fully supported wifi/bt setup and my USB wifi adapter is seen as an ethernet interface.
 
 ## SMBIOS
 
