@@ -71,7 +71,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 
 ## System Specs
 
-![Screen Shot 2020-09-25 at 9 09 29 PM](https://user-images.githubusercontent.com/849044/94329873-94250f00-ff73-11ea-838f-e974f2ecfce6.png)
+![Screen Shot 2020-09-25 at 9 09 29 PM](https://user-images.githubusercontent.com/849044/110931842-f71f1e00-82e7-11eb-8e0c-7cf3f16276ac.png)
 
 | Part        | Model Number
 | ---         | ---
@@ -85,7 +85,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 |             | MSI RX 570 GAMING X 8GB - slot 1
 | Monitor     | LG 27UK650-W 27" 4K IPS w/ HDR10
 | Display Cable | included LG DP cable
-| Storage     | Samsung 830 Series 250GB SSD ()
+| Storage     | Samsung SSD 860 EVO 1TB
 |             | PNY CS900 240GB SSD (Revision CS900J13) x2
 |             | Toshiba MQ01ABD100 1TB HDD
 | Bluetooth   | ASUS USB-BT400 (Firmware: v14 c4096)
@@ -284,12 +284,13 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 ## Readme
 
 - Read everything first and be careful
-- Tested on macOS Catalina 10.15.7
+- Tested on macOS Catalina 10.15.7 and Big Sur 11.0.1
 
 ## macOS Updates
 
 - fresh install of 10.15.6
 - updated to 10.15.7 without any issues (did not update clover or kexts since everything was running perfectly smooth as-is)
+- updates to 10.0.1 without any issues
 
 ## Geek Bench
 
