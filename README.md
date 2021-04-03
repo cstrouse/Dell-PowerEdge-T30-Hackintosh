@@ -82,7 +82,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Chipset     | Intel C236
 | Memory      | Corsair Vengeance LPX 64GB DDR4-3200MHz non-ECC 16GB x 4 (PN: CMK32GX4M2B3200C16)
 | GPU         | Intel HD P530 iGPU
-|             | MSI RX 570 GAMING X 8GB - slot 1
+|             | MSI RX 580 Armor OC 4GB - slot 1
 | Monitor     | LG 27UK650-W 27" 4K IPS w/ HDR10
 | Display Cable | included LG DP cable
 | Storage     | Samsung SSD 860 EVO 1TB
@@ -290,7 +290,8 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 
 - fresh install of 10.15.6
 - updated to 10.15.7 without any issues (did not update clover or kexts since everything was running perfectly smooth as-is)
-- updates to 10.0.1 without any issues
+- updated to 10.0.1 without any issues
+- updated to 11.0.1 without any issues
 
 ## Geek Bench
 
