@@ -1,0 +1,5 @@
+VendorName=Dell Inc.
+OemString=
+SystemName=PowerEdge T30
+Version=1.5.0
+Model=7c5
