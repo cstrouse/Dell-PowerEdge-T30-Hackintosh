@@ -40,7 +40,7 @@ Almost everything works properly and is very stable:
 - nightshift
 - App Store and iServices
 - CPU PM
-- wifi (requires disabling SIP to install for my drivers)
+- wifi (requires disabling SIP for driver installation; can be enabled post-install)
 - bluetooth
 - DRM (except for Apple TV)
 - Intel Quicksync
@@ -71,7 +71,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 
 ## System Specs
 
-![Screen Shot 2020-09-25 at 9 09 29 PM](https://user-images.githubusercontent.com/849044/110931842-f71f1e00-82e7-11eb-8e0c-7cf3f16276ac.png)
+![Screen Shot 2021-04-03 at 7 17 03 PM](https://user-images.githubusercontent.com/849044/113499647-832dfb00-94cc-11eb-974f-f32c20479eff.png)
 
 | Part        | Model Number
 | ---         | ---
@@ -83,7 +83,8 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Memory      | Corsair Vengeance LPX 64GB DDR4-3200MHz non-ECC 16GB x 4 (PN: CMK32GX4M2B3200C16)
 | GPU         | Intel HD P530 iGPU
 |             | MSI RX 580 Armor OC 4GB - slot 1
-| Monitor     | LG 27UK650-W 27" 4K IPS w/ HDR10
+| Monitors    | LG 27UK650-W 27" 4K IPS w/ HDR10
+|             | LG Ultrafine 22MD4KA-B 21.5" 4k IPS LED monitor (219 PPI, thunderbolt) - waiting on cable to test DP alt mode since TB is limited to v2
 | Display Cable | included LG DP cable
 | Storage     | Samsung SSD 860 EVO 1TB
 |             | PNY CS900 240GB SSD (Revision CS900J13) x2
@@ -95,7 +96,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Sound       | Realtek ALC899 (Layout ID: 3)
 | Keyboard    | Logitech MX Keys (connected using Logitech Unified receiver)
 | Mouse       | Logitech M590 (connected using Logitech Unified receiver on a USB extension to prevent lag from RF interference)
-| Bootloader  | Clover ~~r5120~~ OpenCore 0.6.2
+| Bootloader  | Clover ~~r5120~~ OpenCore 0.6.7
 
 ## BIOS Configuration
 
@@ -114,6 +115,21 @@ The rest of the recommended settings are already the defaults used by this BIOS.
 ## UEFI Modifications
 
 These are __MY__ settings given BIOS version `1.4.1` and board `07T4MC`. You need to check these offsets and make sure that they're correct for your machine before trying to change things.
+
+| BIOS Updater filename    | SHA256                                                           | Resources
+|-                         |-                                                                 |-               
+| PowerEdge_T30_1.0.0.exe  | a5e631a7767c219847258bbdef7f9bae9fccc0c8d1db6e1100cecc8433f84ca1 | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.0.0.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.0.0.exe_extracted/bios.txt)
+| PowerEdge_T30_1.0.11.exe | 9d3a2240158113b4dc342656b8cd1f2efa492feb35996305a1f3473bc4c54eb1 | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.0.11.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.0.11.exe_extracted/bios.txt)
+| PowerEdge_T30_1.0.12.exe | 74054d490109ee2fd2a92e0983a4048ac92952086ddc6bec2a16b67412a0de8d | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.0.12.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.0.12.exe_extracted/bios.txt)
+| PowerEdge_T30_1.0.14.exe | 9b0571a7ee96a8df3d3d2e938b68989f9b8b4d0f1fc72065f65681a0ffc6deb8 | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.0.14.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.0.14.exe_extracted/bios.txt)
+| PowerEdge_T30_1.0.15.exe | 3297886d1586c679f3dd39d10c109db36388a6f35e45b2c768e6dd4f1658a579 | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.0.15.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.0.15.exe_extracted/bios.txt)
+| PowerEdge_T30_1.1.0.exe | 7ed2ce092848855ee1ce91ee08e7464eac0c6194af3e073a00f61a2ea3ae929f | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.1.0.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.1.0.exe_extracted/bios.txt)
+| PowerEdge_T30_1.2.0.exe | c2093f2c06516d1cb9af3ac3b5b5cddd752bcfbc41fe493deaab506e40676cbe | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.2.0.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.2.0.exe_extracted/bios.txt)
+| PowerEdge_T30_1.3.1.exe | 66fbf51641861ee068903acd0a6128d2faf2364c34f84fae8cb04fbf019e306b | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.3.1.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.3.1.exe_extracted/bios.txt)
+| PowerEdge_T30_1.4.1.exe | e5c4e94b6209c4da18c1d5de829a8e219b2f2df417b37d61685ebb2ac91d54f8 | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.4.1.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.4.1.exe_extracted/bios.txt)
+| PowerEdge_T30_1.5.0.exe | 5709e52815db704af7d2e858a66d267da6534d7720f72c67270cdd71cccea133 | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.5.0.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.5.0.exe_extracted/bios.txt)
+
+Dell has not changed the offsets for **MSR2**, **DVMT pre-alloc**, or **Above 4GB MMIO** so far in any BIOS release that I've extracted and analyzed from `1.0.0` through to `1.5.0` (which was released 11-Jan-2021). That said, it is unwise to assume that this will continue to be the case and with each release you should extract the firmware and ensure the locations are still correct prior to making changes with modified GRUB shell.
 
 1. Disable __CFG Lock__
 
@@ -225,7 +241,7 @@ Verify the settings with `pmset -g`.
 
 CPU power management works fine as does sleep.
 
-[add intel power gadget screenshot]
+![Screen Shot 2021-04-03 at 9 17 30 PM](https://user-images.githubusercontent.com/849044/113499607-43671380-94cc-11eb-9ad8-7d350cb51d97.png)
 
 ## USB Portmap
 
@@ -284,7 +300,7 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 ## Readme
 
 - Read everything first and be careful
-- Tested on macOS Catalina 10.15.7 and Big Sur 11.0.1
+- Tested on macOS Catalina 10.15.7 and Big Sur up to 11.2.3
 
 ## macOS Updates
 
@@ -292,8 +308,11 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 - updated to 10.15.7 without any issues (did not update clover or kexts since everything was running perfectly smooth as-is)
 - updated to 10.0.1 without any issues
 - updated to 11.0.1 without any issues
+- updated to 11.2.3 with minor issues (BT audio no longer works and requires additional configuration)
 
 ## Geek Bench
+
+** OUTDATED, NEEDS TO BE UPDATED FOR CURRENT SMBIOS iMac17,1 **
 
 ![geek bench score](https://user-images.githubusercontent.com/849044/94329899-d3536000-ff73-11ea-8150-1ed2e165e33e.png)
 
@@ -304,5 +323,6 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 - Dortania -- Vanilla Desktop Guide, without this I wouldn't have gotten far.
 - headkaze -- Hackintool (an essential) and EFI-Agent is pretty sweet too.
 - corpnewt -- Many essential tools, guides/documentation, simply great!
+- LongSoft -- for the incredibly powerful and easy-to-use firmware reverse engineering tools
 - Apple -- for creating such a great OS that we go through all of this to run it.
 - And many, many more I forgot.
