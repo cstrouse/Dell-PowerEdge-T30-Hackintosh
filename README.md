@@ -309,6 +309,7 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 - updated to 10.0.1 without any issues
 - updated to 11.0.1 without any issues
 - updated to 11.2.3 with minor issues (BT audio no longer works and requires additional configuration)
+- updated to 11.3 without any issues
 
 ## Geek Bench
 
