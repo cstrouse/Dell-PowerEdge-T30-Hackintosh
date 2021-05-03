@@ -22,10 +22,10 @@
 * USB
   * Portmap
 * Others
-  * iGPU
+  * iGPU (4k support to be added soon)
   * dGPU
   * SMBIOS
-  * Fan curve move like a Mac
+  * Fan curve move like a Mac (TODO)
   * SIP
   * Security
   * Issues
@@ -36,12 +36,15 @@
 
 Almost everything works properly and is very stable:
 
-- audio (onboard, via dGPU's DP, and via USB BT)
+- audio (onboard, via dGPU's DP, and via Fenvi BT)
 - nightshift
 - App Store and iServices
 - CPU PM
-- wifi (requires disabling SIP for driver installation; can be enabled post-install)
+- wifi
 - bluetooth
+- handoff
+- continuity
+- instant hotspot
 - DRM (except for Apple TV)
 - Intel Quicksync
 - sleep (HDR toggles itself on sometimes upon resume which sucks because it looks like garbage on my monitor when not viewing actual HDR content; haven't tried to fix yet); wakes up from sleep via BT keyboard or mouse quickly and reliably
@@ -61,7 +64,7 @@ PlatformInfo -> Generic -> SystemSerialNumber
 PlatformInfo -> Generic -> SystemUUID
 ```
 
-You can generate the MLB/Serial/UUID serials with GenSMBIOS. Use option 3 and enter iMac17,1 when asked for the type of SMBIOS to create. If you need to change the model in the future you also need to re-generate a new set of serials, UUID and usb portmap.
+You can generate the MLB/Serial/UUID serials with GenSMBIOS. Use option 3 and enter iMac17,1 when asked for the type of SMBIOS to create. If you need to change the model in the future you also need to re-generate a new set of serials, UUID and USB portmap.
 
 Put your ethernet mac address in the ROM field without semicolons. Fixing this post-install is also an option, but is important so don't skip it.
 
@@ -71,7 +74,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 
 ## System Specs
 
-![Screen Shot 2021-04-03 at 7 17 03 PM](https://user-images.githubusercontent.com/849044/113499647-832dfb00-94cc-11eb-974f-f32c20479eff.png)
+![Screen Shot 2021-05-03 at 9 37 42 AM](https://user-images.githubusercontent.com/849044/116906303-f1adc800-abf4-11eb-9405-531198148b0b.png)
 
 | Part        | Model Number
 | ---         | ---
@@ -89,8 +92,8 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Storage     | Samsung SSD 860 EVO 1TB
 |             | PNY CS900 240GB SSD (Revision CS900J13) x2
 |             | Toshiba MQ01ABD100 1TB HDD
-| Bluetooth   | ~~ASUS USB-BT400 (Firmware: v14 c4096)~~ switched to Fenvi FV-HB1200 (1200M) PCI-e wifi/bluetooth card
-| Wifi        | ~~ASUS AC1200 USB-AC53 Nano (using chris111's drivers)~~ switched to Fenvi FV-HB1200 (1200M) PCI-e wifi/bluetooth card
+| Bluetooth   | Fenvi FV-HB1200 (1200M) PCI-e wifi/bluetooth card ( be sure to buy a genuine card w/ the following ID: 14E4:43A0 ; this is especially imporant if you need Linux support )
+| Wifi        | Fenvi FV-HB1200 (1200M) PCI-e wifi/bluetooth card ( be sure to buy a genuine card w/ the following ID: 14E4:43A0 ; this is especially imporant if you need Linux support )
 | Ethernet    | Intel I219LM2 (onboard)
 | USB         | Intel 100 Series/C230 Series USB 3.00 xHCI Controller
 | Sound       | Realtek ALC899 (Layout ID: 3)
@@ -245,18 +248,18 @@ CPU power management works fine as does sleep.
 
 ## USB Portmap
 
-I created an injector kext using `hackintool` which you can use to save some time. One port had to be disabled in order to get down to the 15 port limit; I went with the bottom port on the front panel of the case. You could just as easily set a USB 3.0 port to USB 2.0 to get to 15 ports, too if you prefer.
+I created an injector kext using `hackintool` which you can use to save some time. One port had to be disabled in order to get down to the 15 port limit. You could just as easily set a USB 3.0 port to USB 2.0 to get to 15 ports if you prefer. `USBMap.command` and `USBToolbox` are other ways to create injector kexts and/or SSDTs for your USB mapping.
 
 If you'd like to create your own port mapping follow these steps:
 
 1. Open your OpenCore config and set `Kernel -> Add -> 5 -> USBPorts.kext` to disabled and enable `Kernel -> Quirks -> XhciPortLimit`.
 2. Reboot.
-3. Open Hackintool and go to the usb tab, select all ports listed and remove them, then click the refresh button.
-4. Plug a usb 2 device in every usb port.
-5. Plug a usb 3 device in every usb port.
+3. Open Hackintool and go to the USB tab, select all ports listed and remove them, then click the refresh button.
+4. Plug a USB 2 device in every usb port.
+5. Plug a USB 3 device in every usb port.
 6. Remove anything not green, you should be left with 16 green ports.
-7. Make sure all the HSxx ports are set to usb 2 and SSPx ports are to usb 3.
-8. Remove one port to get down to the 15 port limit.
+7. Make sure all the HSxx ports are set to USB 2, SSxx ports are to USB 3, and internal/proprietary ports are set to internal (255).
+8. Remove one port to get down to the 15 port limit (or set a USB 3.0 device to use a USB 2.0 personality).
 9. Click on the export button and place the resulting USBPorts.kext in the OpenCore kexts folder (overwriting the existing one).
 10. Open your OpenCore config and set `Kernel -> Add -> 5 -> USBPorts.kext` to enabled and disable `Kernel -> Quirks -> XhciPortLimit`.
 11. Reboot.
@@ -300,7 +303,7 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 ## Readme
 
 - Read everything first and be careful
-- Tested on macOS Catalina 10.15.7 and Big Sur up to 11.2.3
+- Tested on macOS Catalina 10.15.7 and Big Sur up to 11.3
 
 ## macOS Updates
 
@@ -316,6 +319,12 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 ** OUTDATED, NEEDS TO BE UPDATED FOR CURRENT SMBIOS iMac17,1 **
 
 ![geek bench score](https://user-images.githubusercontent.com/849044/94329899-d3536000-ff73-11ea-8150-1ed2e165e33e.png)
+
+## Working Hardware I'm No Longer Using
+
+- ASUS AC1200 USB-AC53 Nano wifi (chris111 OC Big Sur driver, must disable SIP to install)
+- ASUS USB-BT400 (Firmware: v14 c4096) bluetooth
+- MSI OC Gaming RX570 8GB AMD Radeon GPU
 
 ## Credits
 
