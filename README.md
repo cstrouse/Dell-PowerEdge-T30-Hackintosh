@@ -89,8 +89,8 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Storage     | Samsung SSD 860 EVO 1TB
 |             | PNY CS900 240GB SSD (Revision CS900J13) x2
 |             | Toshiba MQ01ABD100 1TB HDD
-| Bluetooth   | ASUS USB-BT400 (Firmware: v14 c4096)
-| Wifi        | ASUS AC1200 USB-AC53 Nano (using chris111's drivers)
+| Bluetooth   | ~~ASUS USB-BT400 (Firmware: v14 c4096)~~ switched to Fenvi FV-HB1200 (1200M) PCI-e wifi/bluetooth card
+| Wifi        | ~~ASUS AC1200 USB-AC53 Nano (using chris111's drivers)~~ switched to Fenvi FV-HB1200 (1200M) PCI-e wifi/bluetooth card
 | Ethernet    | Intel I219LM2 (onboard)
 | USB         | Intel 100 Series/C230 Series USB 3.00 xHCI Controller
 | Sound       | Realtek ALC899 (Layout ID: 3)
@@ -249,7 +249,7 @@ I created an injector kext using `hackintool` which you can use to save some tim
 
 If you'd like to create your own port mapping follow these steps:
 
-1. Open your OpenCore config and set `Kernel -> Add -> 6 -> USBPorts.kext` to disabled and enable `Kernel -> Quirks -> XhciPortLimit`.
+1. Open your OpenCore config and set `Kernel -> Add -> 5 -> USBPorts.kext` to disabled and enable `Kernel -> Quirks -> XhciPortLimit`.
 2. Reboot.
 3. Open Hackintool and go to the usb tab, select all ports listed and remove them, then click the refresh button.
 4. Plug a usb 2 device in every usb port.
@@ -258,7 +258,7 @@ If you'd like to create your own port mapping follow these steps:
 7. Make sure all the HSxx ports are set to usb 2 and SSPx ports are to usb 3.
 8. Remove one port to get down to the 15 port limit.
 9. Click on the export button and place the resulting USBPorts.kext in the OpenCore kexts folder (overwriting the existing one).
-10. Open your OpenCore config and set `Kernel -> Add -> 6 -> USBPorts.kext` to enabled and disable `Kernel -> Quirks -> XhciPortLimit`.
+10. Open your OpenCore config and set `Kernel -> Add -> 5 -> USBPorts.kext` to enabled and disable `Kernel -> Quirks -> XhciPortLimit`.
 11. Reboot.
 
 [add port diagram and hackintool screenshot]
