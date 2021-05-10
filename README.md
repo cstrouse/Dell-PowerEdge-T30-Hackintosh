@@ -1,4 +1,4 @@
-# Dell PowerEdge T30 Hackintosh
+# Dell PowerEdge T30/Precision T3620 Hackintosh
 
 **** NOTE: I've switched from Clover to OC and will not be updating/supporting the Clover version. The OC version needs a small bit of cleanup work for the config.plist but runs rock solid and pretty much everything works properly. ****
 
@@ -89,8 +89,8 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Monitors    | LG 27UK650-W 27" 4K IPS w/ HDR10
 |             | LG Ultrafine 22MD4KA-B 21.5" 4k IPS LED monitor (219 PPI, thunderbolt) - waiting on cable to test DP alt mode since TB is limited to v2
 | Display Cable | included LG DP cable
-| Storage     | Samsung SSD 860 EVO 1TB
-|             | PNY CS900 240GB SSD (Revision CS900J13) x2
+| Storage     | Crucial P5 M.2 NVME 2280 SSD
+|             | Samsung SSD 860 EVO 1TB
 |             | Toshiba MQ01ABD100 1TB HDD
 | Bluetooth   | Fenvi FV-HB1200 (1200M) PCI-e wifi/bluetooth card ( be sure to buy a genuine card w/ the following ID: 14E4:43A0 ; this is especially imporant if you need Linux support )
 | Wifi        | Fenvi FV-HB1200 (1200M) PCI-e wifi/bluetooth card ( be sure to buy a genuine card w/ the following ID: 14E4:43A0 ; this is especially imporant if you need Linux support )
@@ -107,7 +107,6 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 - storage to AHCI mode
 - enable USB powershare
 - set preferred graphics to AMD (don't use auto! set to P530 if you are using the iGPU)
-- disable Wake on LAN
 - disable TPM (should be by default)
 - disable Secure Boot (should be by default)
 
@@ -313,6 +312,7 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 - updated to 11.0.1 without any issues
 - updated to 11.2.3 with minor issues (BT audio no longer works and requires additional configuration)
 - updated to 11.3 without any issues
+- updated to 11.3.1 without any issues
 
 ## Geek Bench
 
@@ -325,6 +325,7 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 - ASUS AC1200 USB-AC53 Nano wifi (chris111 OC Big Sur driver, must disable SIP to install)
 - ASUS USB-BT400 (Firmware: v14 c4096) bluetooth
 - MSI OC Gaming RX570 8GB AMD Radeon GPU
+- PNY CS900 240GB SSD (Revision CS900J13) x2
 
 ## Credits
 
