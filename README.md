@@ -22,7 +22,7 @@
 * USB
   * Portmap
 * Others
-  * iGPU (4k support to be added soon)
+  * iGPU
   * dGPU
   * SMBIOS
   * Fan curve move like a Mac (TODO)
@@ -47,7 +47,7 @@ Almost everything works properly and is very stable:
 - instant hotspot
 - DRM (except for Apple TV)
 - Intel Quicksync
-- sleep (HDR toggles itself on sometimes upon resume which sucks because it looks like garbage on my monitor when not viewing actual HDR content; haven't tried to fix yet); wakes up from sleep via BT keyboard or mouse quickly and reliably
+- sleep (HDR toggles itself on sometimes upon resume which sucks because it looks like garbage on my monitor when not viewing actual HDR content; haven't tried to fix yet); wakes up from sleep via BT keyboard or mouse quickly and reliably -- not working properly with iGPU-only
 - restarts/shutdowns
 - recovery
 - NVRAM
