@@ -2,7 +2,7 @@
 
 **** NOTE: I've switched from Clover to OC and will not be updating/supporting the Clover version. The OC version needs a small bit of cleanup work for the config.plist but runs rock solid and pretty much everything works properly. ****
 
-![A24G_1_201708251625270941](https://user-images.githubusercontent.com/849044/88466592-c090b200-ce82-11ea-9990-4153b817b115.jpg)
+![About This Mac Screenshot](https://user-images.githubusercontent.com/849044/119587776-3a841700-bd84-11eb-8846-b998287290b6.png)
 
 ## Index
 
@@ -85,7 +85,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Chipset     | Intel C236
 | Memory      | Corsair Vengeance LPX 64GB DDR4-3200MHz non-ECC 16GB x 4 (PN: CMK32GX4M2B3200C16)
 | GPU         | Intel HD P530 iGPU
-|             | MSI RX 580 Armor OC 4GB - slot 1
+|             | ~~MSI RX 580 Armor OC 4GB - slot 1~~
 | Monitors    | LG 27UK650-W 27" 4K IPS w/ HDR10
 |             | LG Ultrafine 22MD4KA-B 21.5" 4k IPS LED monitor (219 PPI, thunderbolt) - waiting on cable to test DP alt mode since TB is limited to v2
 | Display Cable | included LG DP cable
@@ -295,14 +295,14 @@ With these settings I had full hardware video acceleration and was able to view 
 
 It's best to use a model that matches your processor as closely as possible.
 
-The `iMac17,1` SMBIOS is recommended for Skylake desktops if you have an iGPU+GPU combo.
+The `iMac17,1` SMBIOS is recommended for Skylake desktops if you have an iGPU+GPU combo or just the iGPU.
 
 The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two options are the only Macs that shipped with Skylake CPUs.
 
 ## Readme
 
 - Read everything first and be careful
-- Tested on macOS Catalina 10.15.7 and Big Sur up to 11.3
+- Tested on macOS Catalina 10.15.7 and Big Sur up to 11.4
 
 ## macOS Updates
 
@@ -313,6 +313,7 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 - updated to 11.2.3 with minor issues (BT audio no longer works and requires additional configuration)
 - updated to 11.3 without any issues
 - updated to 11.3.1 without any issues
+- updated to 11.4 without any issues
 
 ## Geek Bench
 
@@ -326,6 +327,7 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 - ASUS USB-BT400 (Firmware: v14 c4096) bluetooth
 - MSI OC Gaming RX570 8GB AMD Radeon GPU
 - PNY CS900 240GB SSD (Revision CS900J13) x2
+- MSI Armor OC RX580 4GB
 
 ## Credits
 
