@@ -110,7 +110,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 - disable TPM (should be by default)
 - disable Secure Boot (should be by default)
 
-The rest of the recommended settings are already the defaults used by this BIOS. DVMT is 32MB for the iGPU and setup doesn't expose a means to change this. I modified it via `setup_var` and the modified GRUB shell while trying to get an iGPU-only setup working with a 4k display with no luck. Many forum posts say not to try and change DVMT pre-alloc via GRUB; if you break your system don't be upset as you were warned.
+The rest of the recommended settings are already the defaults used by this BIOS. DVMT is 32MB for the iGPU and setup doesn't expose a means to change this. I modified it via `setup_var` and the modified GRUB shell while trying to get an iGPU-only setup working with a 4k display ~~with no luck~~. Many forum posts say not to try and change DVMT pre-alloc via GRUB; if you break your system don't be upset as you were warned.
 
 [add screenshots]
 
@@ -290,6 +290,8 @@ I setup the framebuffer as follows within the device properties section:
     * 12190000
 
 With these settings I had full hardware video acceleration and was able to view DRM-protected content (FairPlay 1.x and FairPlay 2.x/3.x). FairPlay 4.x for Apple TV is not working for me and I'm not sure why yet. I'm guessing it's because my system doesn't have a fully supported wifi/bt setup and my USB wifi adapter is seen as an ethernet interface.
+
+I sold my RX580 to quiet the machine, reduce power consumption, and because my 4k displays look way sharper over DP when using the iGPU vs the RX580. I have no idea why this seems to be the case but it's enough of a change that I've switched to solely integrated graphics. If you run the iGPU by itself use `0x191B` for the device ID.
 
 ## SMBIOS
 
