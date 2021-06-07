@@ -2,7 +2,7 @@
 
 **** NOTE: I've switched from Clover to OC and will not be updating/supporting the Clover version. The OC version needs a small bit of cleanup work for the config.plist but runs rock solid and pretty much everything works properly. ****
 
-![About This Mac Screenshot](https://user-images.githubusercontent.com/849044/119587776-3a841700-bd84-11eb-8846-b998287290b6.png)
+![A24G_1_201708251625270941](https://user-images.githubusercontent.com/849044/88466592-c090b200-ce82-11ea-9990-4153b817b115.jpg)
 
 ## Index
 
@@ -74,7 +74,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 
 ## System Specs
 
-![Screen Shot 2021-05-03 at 9 37 42 AM](https://user-images.githubusercontent.com/849044/116906303-f1adc800-abf4-11eb-9405-531198148b0b.png)
+![About This Mac Screenshot](https://user-images.githubusercontent.com/849044/119587776-3a841700-bd84-11eb-8846-b998287290b6.png)
 
 | Part        | Model Number
 | ---         | ---
