@@ -52,6 +52,7 @@ Almost everything works properly and is very stable:
 - recovery
 - NVRAM
 - extra sensors and fan speed controls via apps
+- thunderbolt 3
 
 ## Editing config.plist
 
@@ -86,9 +87,10 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Memory      | Corsair Vengeance LPX 64GB DDR4-3200MHz non-ECC 16GB x 4 (PN: CMK32GX4M2B3200C16)
 | GPU         | Intel HD P530 iGPU
 |             | ~~MSI RX 580 Armor OC 4GB - slot 1~~
+| Thunderbolt | Asus ThunderboltEX 3 AIC
 | Monitors    | LG 27UK650-W 27" 4K IPS w/ HDR10
-|             | LG Ultrafine 22MD4KA-B 21.5" 4k IPS LED monitor (219 PPI, thunderbolt) - waiting on cable to test DP alt mode since TB is limited to v2
-| Display Cable | included LG DP cable
+|             | LG Ultrafine 22MD4KA-B 21.5" 4k IPS LED monitor (219 PPI, thunderbolt 3)
+| Display Cable | included LG DP cable for 27", LG Thunderbolt 3 cable for 21.5"
 | Storage     | Crucial P5 M.2 NVME 2280 SSD
 |             | Samsung SSD 860 EVO 1TB
 |             | Toshiba MQ01ABD100 1TB HDD
@@ -96,6 +98,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Wifi        | Fenvi FV-HB1200 (1200M) PCI-e wifi/bluetooth card ( be sure to buy a genuine card w/ the following ID: 14E4:43A0 ; this is especially imporant if you need Linux support )
 | Ethernet    | Intel I219LM2 (onboard)
 | USB         | Intel 100 Series/C230 Series USB 3.00 xHCI Controller
+|             | Asus ThunderboltEX 3 xHCI Controller
 | Sound       | Realtek ALC899 (Layout ID: 3)
 | Keyboard    | Logitech MX Keys (connected using Logitech Unified receiver)
 | Mouse       | Logitech M590 (connected using Logitech Unified receiver on a USB extension to prevent lag from RF interference)
@@ -106,11 +109,12 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 - optimized defaults
 - storage to AHCI mode
 - enable USB powershare
-- set preferred graphics to AMD (don't use auto! set to P530 if you are using the iGPU)
+- set preferred graphics to AMD (if using dGPU) or auto
 - disable TPM (should be by default)
 - disable Secure Boot (should be by default)
+- enable Thunderbolt 3 and set security disabled if you have an add-in card
 
-The rest of the recommended settings are already the defaults used by this BIOS. DVMT is 32MB for the iGPU and setup doesn't expose a means to change this. I modified it via `setup_var` and the modified GRUB shell while trying to get an iGPU-only setup working with a 4k display ~~with no luck~~. Many forum posts say not to try and change DVMT pre-alloc via GRUB; if you break your system don't be upset as you were warned.
+The rest of the recommended settings are already the defaults used by this BIOS. DVMT is 32MB for the iGPU and setup doesn't expose a means to change this. I modified it via `setup_var` and the modified GRUB shell while trying to get an iGPU-only setup working with a 4k display.
 
 [add screenshots]
 
@@ -247,7 +251,7 @@ CPU power management works fine as does sleep.
 
 ## USB Portmap
 
-I created an injector kext using `hackintool` which you can use to save some time. One port had to be disabled in order to get down to the 15 port limit. You could just as easily set a USB 3.0 port to USB 2.0 to get to 15 ports if you prefer. `USBMap.command` and `USBToolbox` are other ways to create injector kexts and/or SSDTs for your USB mapping.
+I created an injector kext using `hackintool` which you can use to save some time. One port had to be disabled in order to get down to the 15 port limit. You could just as easily set a USB 3.0 port to USB 2.0 to get to 15 ports if you prefer. `USBMap.command` and `USBToolbox` are other ways to create injector kexts and/or SSDTs for your USB mapping. If you run a TB3 controller with an LG Ultrafine it really won't matter since you'll have a USB 3.1 type-A port on the PCIe adapter plus two type-C ports on the back of the display (on their own controller).
 
 If you'd like to create your own port mapping follow these steps:
 
@@ -267,13 +271,13 @@ If you'd like to create your own port mapping follow these steps:
 
 ## dGPU
 
-The current config assumes you have an AMD GPU and a Xeon E3-1225v5 with the Intel HD P530 iGPU in headless mode.
+The current config assumes you have ~~an AMD GPU and~~ a Xeon E3-1225v5 with the Intel HD P530 iGPU ~~in headless mode.~~ configured to drive a display.
 
 If you don't plan on using the iGPU at all (i.e. no display connected) you can delete the whole `PciRoot(0x0)/Pci(0x2,0x0)` section and WhateverGreen should automatically configure it as computing device. It can do video encoding/decoding and such. You will also need to change the BIOS and make the dGPU the primary video card for encoding/decoding to work.
 
 ## iGPU
 
-The Intel HD P530 that my Xeon has is 100% supported by macOS but requires a few device properties so it is recognized as a supported Skylake device.
+The Intel HD P530 that my Xeon has is not natively supported and requires spoofing a supported device ID.
 
 The real device ID `0x191D` will not allow hardware acceleration and needs to be adjusted to the nearest natively supported option that shipped in a real Mac.
 
