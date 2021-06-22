@@ -119,13 +119,13 @@
 			<key>PciRoot(0x0)/Pci(0x2,0x0)</key>
 			<dict>
 				<key>AAPL,ig-platform-id</key>
-				<data>AAASGQ==</data>
-				<key>framebuffer-patch-enable</key>
-				<data>AQAAAA==</data>
-				<key>AAPL,slot-name</key>
-				<string>Internal@0,2,0</string>
+				<data>AAAbGQ==</data>
 				<key>device-id</key>
 				<data>GxkAAA==</data>
+				<key>hda-gfx</key>
+				<string>onboard-1</string>
+				<key>AAPL,GfxYTile</key>
+				<data>AQAAAA==</data>
 			</dict>
 		</dict>
 		<key>Delete</key>
