@@ -47,7 +47,7 @@ Almost everything works properly and is very stable:
 - instant hotspot
 - DRM (except for Apple TV)
 - Intel Quicksync
-- sleep (HDR toggles itself on sometimes upon resume which sucks because it looks like garbage on my monitor when not viewing actual HDR content; haven't tried to fix yet); wakes up from sleep via BT keyboard or mouse quickly and reliably -- not working properly with iGPU-only
+- sleep (HDR toggles itself on sometimes upon resume which sucks because it looks like garbage on my monitor when not viewing actual HDR content; haven't tried to fix yet); wakes up from sleep via BT keyboard or mouse quickly and reliably
 - restarts/shutdowns
 - recovery
 - NVRAM
@@ -82,9 +82,9 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | CPU         | Intel(R) Xeon(R) CPU E3-1225 v5 @ 3.30GHz (Quad Core)
 | PSU         | Corsair 500W 80 Plus Gold w/ 24-pin to 8-pin adapter
 | Motherboard | Dell 07T4MC
-| BIOS        | 1.4.1
+| BIOS        | 1.6.0
 | Chipset     | Intel C236
-| Memory      | Corsair Vengeance LPX 64GB DDR4-3200MHz non-ECC 16GB x 4 (PN: CMK32GX4M2B3200C16)
+| Memory      | Corsair Vengeance LPX 32GB DDR4-2400MHz non-ECC 16GB x 4 (PN: CMK32GX4M2B2400C16)
 | GPU         | Intel HD P530 iGPU
 |             | ~~MSI RX 580 Armor OC 4GB - slot 1~~
 | Thunderbolt | Asus ThunderboltEX 3 AIC
@@ -102,7 +102,7 @@ For more information on setting up OpenCore please refer to [this](https://dorta
 | Sound       | Realtek ALC899 (Layout ID: 3)
 | Keyboard    | Logitech MX Keys (connected using Logitech Unified receiver)
 | Mouse       | Logitech M590 (connected using Logitech Unified receiver on a USB extension to prevent lag from RF interference)
-| Bootloader  | Clover ~~r5120~~ OpenCore 0.6.7
+| Bootloader  | Clover ~~r5120~~ OpenCore 0.7.0
 
 ## BIOS Configuration
 
@@ -120,7 +120,7 @@ The rest of the recommended settings are already the defaults used by this BIOS.
 
 ## UEFI Modifications
 
-These are __MY__ settings given BIOS version `1.4.1` and board `07T4MC`. You need to check these offsets and make sure that they're correct for your machine before trying to change things.
+These are __MY__ settings given BIOS version `1.6.0` and board `07T4MC`. You need to check these offsets and make sure that they're correct for your machine before trying to change things.
 
 | BIOS Updater filename    | SHA256                                                           | Resources
 |-                         |-                                                                 |-               
@@ -135,14 +135,14 @@ These are __MY__ settings given BIOS version `1.4.1` and board `07T4MC`. You nee
 | PowerEdge_T30_1.4.1.exe | e5c4e94b6209c4da18c1d5de829a8e219b2f2df417b37d61685ebb2ac91d54f8 | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.4.1.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.4.1.exe_extracted/bios.txt)
 | PowerEdge_T30_1.5.0.exe | 5709e52815db704af7d2e858a66d267da6534d7720f72c67270cdd71cccea133 | [Extracted Files](Firmware/BiosDump/PowerEdge_T30_1.5.0.exe_extracted), [Plaintext](Firmware/BiosDump/PowerEdge_T30_1.5.0.exe_extracted/bios.txt)
 
-Dell has not changed the offsets for **MSR2**, **DVMT pre-alloc**, or **Above 4GB MMIO** so far in any BIOS release that I've extracted and analyzed from `1.0.0` through to `1.5.0` (which was released 11-Jan-2021). That said, it is unwise to assume that this will continue to be the case and with each release you should extract the firmware and ensure the locations are still correct prior to making changes with modified GRUB shell.
+Dell has not changed the offsets for **MSR2**, **DVMT pre-alloc**, or **Above 4GB MMIO** so far in any BIOS release that I've extracted and analyzed from `1.0.0` through to `1.6.0`. That said, it is unwise to assume that this will continue to be the case and with each release you should extract the firmware and ensure the locations are still correct prior to making changes with modified GRUB shell.
 
 1. Disable __CFG Lock__
 
 `setup_var 0xAF 0x0`
 
 <details>
- <summary>CFG Lock Options in BIOS 1.4.1</summary>
+ <summary>CFG Lock Options in BIOS 1.6.0</summary>
 
 ```
 0x35970 				One Of: CFG lock, VarStoreInfo (VarOffset/VarName): 0xAF, VarStore: 0x1, QuestionId: 0x1E2, Size: 1, Min: 0x0, Max 0x1, Step: 0x0 {05 91 25 01 26 01 E2 01 01 00 AF 00 10 10 00 01 00}
@@ -161,7 +161,7 @@ Dell has not changed the offsets for **MSR2**, **DVMT pre-alloc**, or **Above 4G
 `setup_var 0x350 0x2`
 
 <details>
- <summary>DVMT Pre-Allocated Options in BIOS 1.4.1</summary>
+ <summary>DVMT Pre-Allocated Options in BIOS 1.6.0</summary>
 
 ```
 0x3A119 			One Of: DVMT Pre-Allocated, VarStoreInfo (VarOffset/VarName): 0x350, VarStore: 0x1, QuestionId: 0x275A, Size: 1, Min: 0x1, Max 0xFE, Step: 0x0 {05 91 D5 06 F8 06 5A 27 01 00 50 03 14 10 01 FE 00}
@@ -308,7 +308,7 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 ## Readme
 
 - Read everything first and be careful
-- Tested on macOS Catalina 10.15.7 and Big Sur up to 11.4
+- Tested on macOS Catalina 10.15.7 and Big Sur up to 11.5.2
 
 ## macOS Updates
 
@@ -320,6 +320,7 @@ The `iMacPro1,1` SMBIOS should be used if you only have a dGPU. These two option
 - updated to 11.3 without any issues
 - updated to 11.3.1 without any issues
 - updated to 11.4 without any issues
+- updated to 11.5.2 without any issues
 
 ## Geek Bench
 
