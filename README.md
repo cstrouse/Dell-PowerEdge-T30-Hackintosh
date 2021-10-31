@@ -1,6 +1,6 @@
 # Dell PowerEdge T30/Precision T3620 Hackintosh
 
-**** NOTE: I've switched from Clover to OC and will not be updating/supporting the Clover version. The OC version needs a small bit of cleanup work for the config.plist but runs rock solid and pretty much everything works properly. ****
+**** NOTE: I've switched to a Z170-based custom Hackintosh and M1 Macbook Air so this repository is unlikely to receive updates past Monterrey. ****
 
 ![A24G_1_201708251625270941](https://user-images.githubusercontent.com/849044/88466592-c090b200-ce82-11ea-9990-4153b817b115.jpg)
 
